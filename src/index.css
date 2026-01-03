@@ -1,0 +1,191 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
+body{
+  background-color: rgb(22, 22, 22);
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+nav{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 80px;
+  background-color: rgb(8, 8, 8);
+  border-radius: 0 0 20px 20px;
+}
+nav a{
+  margin: 5px;
+  text-decoration: none;
+}
+h1{
+  text-align: center;
+}
+.content-form{
+  display: flex;
+  justify-content: center;
+}
+form{
+  border: solid;
+  padding: 10px;
+  width: 50vw;
+}
+form button{
+  border: none;
+  width: 60px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: rgb(40, 40, 40);
+  color: white;
+}
+form button:hover{
+  border: solid rgb(79, 18, 136) 3px;
+  scale: 1.1;
+  transition: 0.3s;
+}
+form input{
+  width: 150px;
+  height: 15px;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+li{
+  text-align: start;
+}
+
+.Right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+ol{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+.contenedor-supremo{
+  display: flex;
+  flex-direction: row;
+}
+.contenedor-supremo .aside{
+  width: 50vw;
+}
+.contenedor-supremo .Right{
+  width: 50vw;
+}
+.card-prod{
+  border: solid 2px;
+
+  margin: 5px;
+}
+.card-prod .main{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+.card-prod .footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+.footer h4{
+  margin: 0;
+}
+.card-prod .color{
+  height: 10px;
+  background-color: red;
+
+}
+
+.card-prod.bajo .color {
+  background: #e53935;
+}
+
+.card-prod.medio .color {
+  background: #fbc02d;
+}
+
+.card-prod.ok .color {
+  background: #43a047;
+}
+
+
+
+
+.contenedor{
+  height: 200px;
+  width: 100vw;
+  background-color: #5D6363;
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  align-items: center;
+}
+.cards{
+  height: 120px;
+  width: 12vw;
+  background-color: rgb(8, 8, 8);
+  border-radius: 7px;
+}
+.cards h3{
+  font-size: 40px;
+  font-weight: 250;
+  margin: 5px;
+  margin-bottom: 0;
+  color: rgb(135, 135, 255);
+}
+.cards h4{
+  margin: 0px;
+}
+.cards a{
+  font-weight: bold;
+  font-size: 13px;
+}
+.cards a:visited{
+  color: white;
+}
+.ValoInventario{
+  text-align: start;
+}
+.ValoInventario h3{
+  font-weight: 600;
+}
+.ValoInventario .costo, .ValoInventario .venta{
+  border: solid rgb(8, 8, 8) 1px;
+  background-color: rgb(8, 8, 8);
+  margin-bottom: 10px;
+}
+.costo, .venta{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 5px;
+  width: 18vw;
+}
+.costo .costo-palabra, .venta .venta-palabra{
+  padding-left: 5px;
+  font-weight: bold;
+}
+.costo .costo-numero, .venta .venta-numero{
+  padding-right: 5px;
+  font-weight: bold;
+}
