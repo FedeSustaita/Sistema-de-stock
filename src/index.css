@@ -316,6 +316,55 @@ ol{
 
 
 @media (max-width: 600px) {
+  /* home */
+  .contenedor{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+  .contenedor .cards{
+    width: 50vw;
+    margin: 10px;
+  }
+  .contenedor .ValoInventario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .contenedor-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contenedor-main .contenedor-chico{
+    width: 50vw;
+  }
+  .conten-interno{
+    width: 70vw;
+  }
+  .conten-interno button{
+    width: 30vw;
+  }
+  .pantalla, .pantalla2{
+    width: 80vw;
+  }
+  .pantalla form, .pantalla2 form{
+    width: 65vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+  .form-contenedor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+  /* inventario */
   nav{
     justify-content: center;
   }
