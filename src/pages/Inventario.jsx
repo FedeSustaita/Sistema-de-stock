@@ -20,12 +20,16 @@
     const [nombre, setNombre] = useState("")
     const [cantidad, setCantidad] = useState("")
     const [precio, setPrecio] = useState("")
+    const [descripcion, setDescripcion] = useState("")
     const [stockEst, setStockEst] = useState("")
     const [idVenta, setIdVenta] = useState("")
+    const [idCompra, setIdCompra] = useState("")
     const [cantidadVenta, setCantidadVenta] = useState("")
+    const [cantidadCompra, setCantidadCompra] = useState("")
     const [nombreMod,setNombreMod] = useState("")
     const [cantidadMod, setCantidadMod] = useState("")
     const [precioMod, setPrecioMod] = useState("")
+    const [descripcionMod, setDescripcionMod] = useState("")
     const [idMod, setIdMod] = useState("")
     const [stockEstMod, setStockEstMod] = useState("")
     useEffect(() => {
@@ -51,6 +55,7 @@
             nombre,
             cantidad: Number(cantidad),
             precio: Number(precio),
+            descripcion: descripcion,
             stockEst: Number(stockEst)
         }
 
@@ -62,6 +67,7 @@
         setCantidad("")
         setPrecio("")
         setStockEst("")
+        setDescripcion("")
     }
 
 
@@ -86,6 +92,27 @@
         setIdVenta("")
         setCantidadVenta("")
     }
+    const compra = (e) => {
+        e.preventDefault()
+
+        const producto = productos.find(p => p.id === Number(idCompra))
+        if (!producto) return
+
+        const nuevaCantidad = producto.cantidad + Number(cantidadCompra)
+
+        setProd(prev =>
+            prev.map(p =>
+                p.id === producto.id
+                    ? { ...p, cantidad: nuevaCantidad >= 0 ? nuevaCantidad : 0 }
+                    : p
+            )
+        )
+
+        registrarMovimiento("COMPRA", producto.nombre, Number(cantidadCompra))
+
+        setIdCompra("")
+        setCantidadCompra("")
+    }
 
     const modificar = (e) => {
         e.preventDefault()
@@ -101,6 +128,7 @@
                         nombre: nombreMod,
                         cantidad: Number(cantidadMod),
                         precio: Number(precioMod),
+                        descripcion: descripcion,
                         stockEst: Number(stockEstMod)
                     }
                     : p
@@ -118,6 +146,7 @@
         setPrecioMod("")
         setStockEstMod("")
         setIdMod("")
+        setDescripcionMod("")
     }
 
     const eliminar = (id) => {
@@ -152,6 +181,9 @@
                     <label>Precio</label>
                     <input type="number" value={precio} onChange={e => setPrecio(e.target.value)} required />
                     <br />
+                    <label>Descripcion</label>
+                    <input type="text" value={descripcion} onChange={e => setDescripcion(e.target.value)} required />
+                    <br />
                     <label>Stock Estadar</label>
                     <input type="number" value={stockEst} onChange={e => setStockEst(e.target.value)} required />
                     <br />
@@ -174,6 +206,22 @@
 
                     <button type="submit">Vender</button>
                 </form>
+                <h3>Compra</h3>
+                <form onSubmit={compra}>
+                    <select value={idCompra} onChange={e => setIdCompra(e.target.value)} required>
+                    <option value="">Seleccionar producto</option>
+                    {productos.map(p => (
+                        <option key={p.id} value={p.id}>
+                            {p.nombre}
+                        </option>
+                    ))}
+                    </select>
+
+                    <label>Cantidad</label>
+                    <input type="number" value={cantidadCompra} onChange={e => setCantidadCompra(e.target.value)} required />
+
+                    <button type="submit">Comprar</button>
+                </form>
 
                 <h3>Modificar</h3>
                 <form onSubmit={modificar}>
@@ -188,6 +236,9 @@
                     <br />
                     <label>Precio</label>
                     <input type="number" value={precioMod} onChange={e => setPrecioMod(e.target.value)} required />
+                    <br />
+                    <label>Descripcion</label>
+                    <input type="text" value={descripcionMod} onChange={e => setDescripcionMod(e.target.value)} required />
                     <br />
                     <label>Stock Estadar</label>
                     <input type="number" value={stockEstMod} onChange={e => setStockEstMod(e.target.value)} required />
@@ -224,13 +275,16 @@
                         <div className="titulo"><h3>{p.nombre}</h3></div>
                         <hr />
                         <div className="main">
-                            <h4>
-                                Stock: {p.cantidad}
-                            </h4> 
-                            ---- 
-                            <h4>
-                                Stock Estandar: {p.stockEst}
-                            </h4>
+                        <h4>{p.cantidad} / {p.stockEst}</h4>
+                        <div className="stock-bar">
+                            <div 
+                            className={`fill ${estado}`} 
+                            style={{ width: `${(p.cantidad / p.stockEst) * 100}%` }}
+                            ></div>
+                        </div>
+                        </div>
+                        <div className="descr">
+                            {p.descripcion}
                         </div>
                         <div className="footer">
                             <h4>
