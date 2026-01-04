@@ -134,7 +134,23 @@ console.log(masVendidos);
 
 
 
+const haceUnaSemana = new Date()
+haceUnaSemana.setDate(haceUnaSemana.getDate() - 7)
+const ventasUltimaSemana = historial.filter(m => {
+  if (m.tipo !== "VENTA") return false
 
+  const fechaMovimiento = new Date(m.fecha)
+
+  return fechaMovimiento >= haceUnaSemana
+})
+console.log(ventasUltimaSemana.length)
+
+const ultimas5Ventas = historial
+  .filter(m => m.tipo === "VENTA")
+  .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+  .slice(0, 5)
+
+console.log(ultimas5Ventas)
 
 
 
@@ -150,24 +166,20 @@ console.log(masVendidos);
                 <div className="cards">
                     <h3>{totalVentas}</h3>
                     <h4>Ventas</h4>
-                    <Link to="/inventario">↗ Ver en el inventario</Link>
+                    <Link to="/movimientos">↗ Movimientos</Link>
                 </div>
                 <div className="cards">
-                    <h3>150</h3>
-                    <h4>Ventas</h4>
-                    <Link to="/inventario">↗ Ver en el inventario</Link>
+                    <h3>{ventasUltimaSemana.length}</h3>
+                    <h4>Ventas de la semana</h4>
+                    <Link to="/movimientos">↗ Movimientos</Link>
                 </div>
                 <div className="cards">
                     <h3>{totalpr}</h3>
                     <h4>Productos</h4>
-                    <Link to="/inventario">↗ Ver en el inventario</Link>
+                    <Link to="/productos">↗ Productos</Link>
                 </div>
                 <div className="ValoInventario">
                     <h3>Valores de inventario</h3>
-                    <div className="costo">
-                        <div className="costo-palabra">Costo</div>
-                        <div className="costo-numero">${totalGeneral*0.6}</div>
-                    </div>
                     <div className="venta">
                         <div className="venta-palabra">venta</div>
                         <div className="venta-numero">${totalGeneral}</div>
@@ -270,6 +282,33 @@ console.log(masVendidos);
                         </div>
                         <button onClick={cerrar2}>Cerrar</button>
                     </div>
+            </div>
+            <div className="contenedor-ventas">
+                <div className="contenedor-ventas-interno">
+                    <h3>Ultimas Ventas</h3>
+                    <div className="contenedor-ventas-interno-tabla">
+                        <ul>
+                            {ultimas5Ventas.map((v, i) => (
+                            <li key={i} className="venta-item">
+                                <div className="venta-info">
+                                <span className="producto">{v.producto}</span>
+                                <span className="fecha">
+                                    {new Date(v.fecha).toLocaleDateString("es-AR", {
+                                        day: "2-digit",
+                                        month: "2-digit",
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    })}
+                                </span>
+                                </div>
+
+                                <span className="cantidad">x{v.cantidad}</span>
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                </div>
             </div>
         </>
     )

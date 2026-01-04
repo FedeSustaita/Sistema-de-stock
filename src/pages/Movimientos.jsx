@@ -2,7 +2,7 @@
     import { Navigate } from "react-router-dom"
     import { AuthContext } from "../AuthContext"
 
-    const Inventario = () => {
+    const Movimientos = () => {
     const { isLoggedIn } = useContext(AuthContext)
 
     const [productos, setProd] = useState(() => {
@@ -159,7 +159,7 @@
     }
 
 
-
+    
     if (!isLoggedIn) {
         return <Navigate to="/" replace />
     }
@@ -252,7 +252,7 @@
                     {historial.map((h, i) => (
                     <li key={i} className={`mov ${h.tipo.toLowerCase()}`}>
                         <strong>{h.tipo}</strong> | {h.producto} | Cantidad: {h.cantidad}
-                        <br />
+                        
                         <small>{h.fecha}</small>
                     </li>
                     ))}
@@ -304,4 +304,4 @@
     )
     }
 
-    export default Inventario
+    export default Movimientos
