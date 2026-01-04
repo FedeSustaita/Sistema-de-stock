@@ -1,33 +1,66 @@
-import { useState } from "react"
-import axios from "axios"
-const Log=()=>{
-        const [usuario,setUsuario]=useState('')
-        const [contra,setContra]=useState('')
-        const enviar =(e)=>{
-            e.preventDefault()
-            console.log('Usuario',usuario);
-            console.log('Contraseña',contra);
-            const Crear = async()=>{
-                await axios.post('http://localhost:3000/create',{nombre:usuario,contrase:contra})
-                console.log('Datos enviados');
-            }
-            Crear()
-        }
-    return(
-        <>
-            <h1>
-                Crear Cuenta
-            </h1>
-            <form onSubmit={enviar}>
-                <label htmlFor="usuario">User: </label>
-                <input type="text" name="usuario" id="usuario" onChange={(e)=> setUsuario(e.target.value)}/>
-                <br />
-                <label htmlFor="contra">Password: </label>
-                <input type="password" name="contra" id="contra" onChange={(e)=> setContra(e.target.value)}/>
-                <br />
-                <button type="submit">Enviar</button>
-            </form>
-        </>
-    )
-}
-export default Log
+import { useState } from "react";
+import api from "../api"; // tu archivo de axios con baseURL ya configurada
+import { useNavigate } from "react-router-dom";
+
+const Log = () => {
+  const navigate = useNavigate();
+
+  const [usuario, setUsuario] = useState("");
+  const [contra, setContra] = useState("");
+
+  const enviar = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Llamada al backend para crear usuario
+      const res = await api.post("/auth/register", {
+        username: usuario,
+        password: contra,
+      });
+
+      if (res.data.message) {
+        console.log(res.data.message);
+        alert("Cuenta creada correctamente");
+
+        // Redirigir al login después de crear la cuenta
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+      if (err.response && err.response.data && err.response.data.error) {
+        alert(`Error: ${err.response.data.error}`);
+      } else {
+        alert("Error al crear la cuenta");
+      }
+    }
+  };
+
+  return (
+    <>
+      <h1>Crear Cuenta</h1>
+      <form onSubmit={enviar}>
+        <label htmlFor="usuario">Usuario: </label>
+        <input
+          type="text"
+          id="usuario"
+          value={usuario}
+          onChange={(e) => setUsuario(e.target.value)}
+          required
+        />
+        <br />
+        <label htmlFor="contra">Contraseña: </label>
+        <input
+          type="password"
+          id="contra"
+          value={contra}
+          onChange={(e) => setContra(e.target.value)}
+          required
+        />
+        <br />
+        <button type="submit">Crear cuenta</button>
+      </form>
+    </>
+  );
+};
+
+export default Log;
