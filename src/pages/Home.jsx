@@ -9,10 +9,7 @@ const Home = () => {
 
   const [usuario, setUsuario] = useState("");
   const [contra, setContra] = useState("");
-    const logout = () => {
-    setIsLoggedIn(false)
-    localStorage.setItem("isLoggedIn", "false")
-    }
+
 
   const enviar = async (e) => {
     e.preventDefault();
@@ -41,9 +38,6 @@ const Home = () => {
         <>
 
             <h1>¡Bienvenido!</h1>
-            <button onClick={logout} className="btn-logout">
-                🔒 Cerrar sesión
-            </button>
         </>
       ) : (
         <>
